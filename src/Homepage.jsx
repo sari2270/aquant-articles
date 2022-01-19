@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import Articles from "./Articles";
+import NotFound from "./NotFound";
+import Loading from "./Loading";
 
 import axios from "axios";
 import Search from "./Search";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const Homepage = () => {
-    
-    const [articles, setArticles] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [error, setError] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    
-    const BASE_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
-    const SEARCH_URL = `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${API_KEY}`;
+const Homepage = ({ articles, setArticles }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const BASE_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+  const SEARCH_URL = `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${API_KEY}`;
 
   useEffect(() => {
     const fetchArticlesHandler = async () => {
@@ -33,7 +33,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const fetchArticlesByQuery = async () => {
-        if (!searchQuery) return;
+      if (!searchQuery) return;
       setIsLoading(true);
       setError(null);
       try {
@@ -52,15 +52,15 @@ const Homepage = () => {
     };
   }, [searchQuery]);
 
-  const changeQueryHandler = ({target: {value}}) => {
-      setSearchQuery(value)
-      console.log(value);
-  }
+  const changeQueryHandler = ({ target: { value } }) => {
+    setSearchQuery(value);
+  };
+  if (error) return <NotFound />;
 
   return (
     <>
-    <Search onChangeQuery={changeQueryHandler}/>
-      <Articles articles={articles} />
+      <Search onChangeQuery={changeQueryHandler} />
+      <Articles articles={articles} isLoading={isLoading} />
     </>
   );
 };

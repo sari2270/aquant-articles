@@ -1,0 +1,20 @@
+a {
+    color: black;
+    text-decoration: none; /* no underline */
+  }
+
+  img {
+    object-fit: cover;
+  }
+
+.homepage-img{
+    height: 150px;
+}
+
+.card-height{
+    height: 550px;
+}
+
+.page-img{
+    height: 500px;
+}
