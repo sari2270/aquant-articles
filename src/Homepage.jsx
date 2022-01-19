@@ -6,7 +6,8 @@ import Loading from "./Loading";
 import axios from "axios";
 import Search from "./Search";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = "d6384e299b904bb2be572793779206f1";
+// const API_KEY = process.env.REACT_APP_API_KEY;
 
 const Homepage = ({ articles, setArticles }) => {
   const [searchQuery, setSearchQuery] = useState("");
